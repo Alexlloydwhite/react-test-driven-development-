@@ -2,6 +2,7 @@ import React from 'react';
 import Counter from '../Counter';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { add } from 'lodash';
 
 test("header renders with correct test", () => {
     const { getByTestId } = render(<Counter />);
@@ -22,4 +23,11 @@ test("input exists, initial value is 1", () => {
     const inputEl = getByTestId('input');
 
     expect(inputEl.value).toBe('1');
+});
+
+test("add button renders with + symbol", () => {
+    const getByTestId = render(<Counter />);
+    const addBtn = getByTestId('add-btn');
+
+    expect(addBtn.textContent).toBe('+');
 });
