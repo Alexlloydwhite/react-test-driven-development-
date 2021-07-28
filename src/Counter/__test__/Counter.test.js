@@ -31,3 +31,10 @@ test("add button renders with + symbol", () => {
 
     expect(addBtn.textContent).toBe('+');
 });
+
+test("add button renders with + symbol", () => {
+    const getByTestId = render(<Counter />);
+    const subtractBtn = getByTestId('add-subtract');
+
+    expect(subtractBtn.textContent).toBe('-');
+});
