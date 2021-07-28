@@ -76,3 +76,104 @@ test("clicking on subtract btn subtracts 1 to counter", () => {
 
     expect(counterEl.textContent).toBe('-1');
 });
+
+test("changing input value then clicking on add btn works correctly", () => {
+    const { getByTestId } = render(<Counter />);
+    const btnEl = getByTestId('add-btn');
+    const counterEl = getByTestId('counter');
+    const inputEl = getByTestId('input');
+
+    fireEvent.change(inputEl, {
+        target: {
+            value: '5'
+        }
+    });
+
+    fireEvent.click(btnEl);
+
+    expect(counterEl.textContent).toBe('5');
+});
+
+test("changing input value then clicking on subtract btn works correctly", () => {
+    const { getByTestId } = render(<Counter />);
+    const btnEl = getByTestId('subtract-btn');
+    const counterEl = getByTestId('counter');
+    const inputEl = getByTestId('input');
+
+    fireEvent.change(inputEl, {
+        target: {
+            value: '5'
+        }
+    });
+
+    fireEvent.click(btnEl);
+
+    expect(counterEl.textContent).toBe('-5');
+});
+
+test("adding and then subtracting leads to the correct counter number", () => {
+    const { getByTestId } = render(<Counter />);
+    const addBtnEl = getByTestId('add-btn');
+    const subtractBtnEl = getByTestId('subtract-btn');
+    const counterEl = getByTestId('counter');
+    const inputEl = getByTestId('input');
+
+    fireEvent.change(inputEl, {
+        target: {
+            value: '10'
+        }
+    });
+
+    fireEvent.click(addBtnEl);
+    fireEvent.click(addBtnEl);
+    fireEvent.click(addBtnEl);
+    fireEvent.click(addBtnEl);
+    fireEvent.click(subtractBtnEl);
+    fireEvent.click(subtractBtnEl);
+
+    expect(counterEl.textContent).toBe('20');
+
+    fireEvent.change(inputEl, {
+        target: {
+            value: '5'
+        }
+    });
+
+    fireEvent.click(addBtnEl);
+    fireEvent.click(subtractBtnEl);
+    fireEvent.click(subtractBtnEl);
+
+    expect(counterEl.textContent).toBe('15');
+});
+
+test("counter contains correct class name", () => {
+    const { getByTestId } = render(<Counter />);
+    const counterEl = getByTestId("counter");
+    const addBtnEl = getByTestId('add-btn');
+    const subtractBtnEl = getByTestId('subtract-btn');
+    const inputEl = getByTestId('input');
+
+    expect(counterEl.className).toBe("");
+
+    fireEvent.change(inputEl, {
+        target: {
+            value: '50'
+        }
+    });
+
+    fireEvent.click(addBtnEl);
+    expect(counterEl.className).toBe("");
+
+    fireEvent.click(addBtnEl);
+    expect(counterEl.className).toBe("green");
+
+    fireEvent.click(subtractBtnEl);
+    fireEvent.click(subtractBtnEl);
+    expect(counterEl.className).toBe("");
+
+    fireEvent.click(subtractBtnEl);
+    fireEvent.click(subtractBtnEl);
+    fireEvent.click(subtractBtnEl);
+    fireEvent.click(subtractBtnEl);
+    expect(counterEl.className).toBe("red");
+});
