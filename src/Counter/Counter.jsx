@@ -9,7 +9,14 @@ export default function Counter() {
         <div>
             <h2 data-testid="header">My Counter</h2>
             <h2 data-testid="counter">{counterValue}</h2>
-            <button data-testid="subtract-btn">-</button>
+            <button
+                data-testid="subtract-btn"
+                onClick={() => {
+                    setCounterValue(counterValue - inputValue);
+                }}
+            >
+                -
+            </button>
             <input
                 data-testid="input"
                 type="number"
@@ -19,7 +26,14 @@ export default function Counter() {
                     setInputValue(e.target.value)
                 }}
             />
-            <button data-testid="add-btn">+</button>
+            <button
+                data-testid="add-btn"
+                onClick={() => {
+                    setCounterValue(counterValue + inputValue);
+                }}
+            >
+                +
+            </button>
         </div>
     );
 }
